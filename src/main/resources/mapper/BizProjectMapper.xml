@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.biz.dao.BizProjectDao">
+
+	<select id="queryAllProjectNames" resultType="java.lang.String">
+		SELECT project_name
+		FROM biz_project
+	</select>
+	<select id="queryAllProductNameAndParentName" resultType="com.teamtek.admin.biz.vo.ProductAndParentVo">
+		SELECT
+		p1.project_name productName,
+		(
+		SELECT
+		p2.project_name
+		FROM
+		biz_project p2
+		WHERE
+		p1.p_id = p2.id
+		) parentProjectName
+		FROM
+		biz_project p1 WHERE p1.is_product=1
+	</select>
+</mapper>

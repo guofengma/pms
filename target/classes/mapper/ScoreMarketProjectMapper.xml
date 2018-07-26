@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.score.dao.ScoreMarketProjectDao">
+
+	<!-- 通用查询结果列 -->
+	<select id="queryAllUniqueCodes" resultType="java.lang.String">
+		SELECT unique_code
+		FROM score_market_project
+	</select>
+
+	<select id="findByScoreDataIdAndloanDateAndProductId" resultType="com.teamtek.admin.score.entity.ScoreBaseProject">
+		SELECT *
+		FROM score_market_project
+		WHERE
+		score_data_id=#{scoreDataId} AND
+		DATE_FORMAT(loan_date,'%Y-%m')='#{scoreDataId}' AND
+		product_id=#{productId}
+
+	</select>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.score.dao.ScoreDataDao">
+
+	<select id="queryMapsPage" resultType="java.util.Map">
+		SELECT
+		sd.*, brt.`name` template_name
+		FROM
+		score_data sd LEFT JOIN biz_rule_template brt ON brt.id = sd.rule_template_id
+		<where>
+			<if test="null!=templateName and templateName.trim() != ''">
+				AND brt.`name` like concat('%',#{templateName},'%')
+			</if>
+		</where>
+		ORDER BY sd.import_time DESC
+		LIMIT #{current},#{size}
+	</select>
+	<select id="queryMapsPageTotal" resultType="java.lang.Integer">
+		SELECT
+			COUNT(sd.id)
+		FROM
+		score_data sd LEFT JOIN biz_rule_template brt ON brt.id = sd.rule_template_id
+		<where>
+			<if test="null!=templateName and templateName.trim() != ''">
+				AND brt.`name` like concat('%',#{templateName},'%')
+			</if>
+		</where>
+	</select>
+</mapper>

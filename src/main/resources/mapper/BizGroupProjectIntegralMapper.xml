@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.biz.dao.BizGroupProjectIntegralDao">
+
+	<resultMap id="BaseResultMap" type="com.teamtek.admin.biz.entity.BizGroupProjectIntegral">
+		<id column="id" property="id" />
+		<result column="group_project_configure_id" property="groupProjectConfigureId" />
+		<result column="user_id" property="userId" />
+		<result column="curr_date" property="currDate" />
+		<result column="adjusted_integral" property="adjustedIntegral" />
+	</resultMap>
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+       SELECT id, group_project_configure_id AS groupProjectConfigureId, user_id AS userId, curr_date AS currDate, adjusted_integral AS adjustedIntegral FROM biz_group_project_integral
+    </sql>
+</mapper>

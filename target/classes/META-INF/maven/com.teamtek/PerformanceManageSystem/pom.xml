@@ -1,0 +1,384 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.teamtek</groupId>
+	<artifactId>PerformanceManageSystem</artifactId>
+	<version>0.0.1</version>
+	<packaging>jar</packaging>
+	<!-- <packaging>war</packaging> -->
+	<name>PerformanceManageSystem</name>
+	<description>佛山邮储积分系统</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<commons-lang.version>3.6</commons-lang.version>
+		<commons-fileupload.version>1.3.1</commons-fileupload.version>
+		<mybatis-plus.version>2.1.6</mybatis-plus.version>
+		<mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+		<alibaba-druid.version>1.0.26</alibaba-druid.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.locales>zh_CN</project.build.locales>
+		<shiro.version>1.4.0</shiro.version>
+	</properties>
+
+	<!-- spring boot 父节点依赖, 引入这个之后相关的引入就不需要添加version配置， spring boot会自动选择最合适的版本进行添加。 -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-beanutils</groupId>
+					<artifactId>commons-beanutils</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-beanutils</groupId>
+					<artifactId>commons-beanutils</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- EhCache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.2.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Spring Boot -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+
+		<!-- Druid数据库连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${alibaba-druid.version}</version>
+		</dependency>
+
+		<!-- MySql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!-- FastJson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+
+		<!-- MyBatisPlus -->
+		<!-- <dependency> <groupId>com.baomidou</groupId> <artifactId>mybatisplus-spring-boot-starter</artifactId> 
+			<version>${mybatisplus-spring-boot-starter.version}</version> <exclusions> 
+			<exclusion> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot</artifactId> 
+			</exclusion> <exclusion> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-autoconfigure</artifactId> 
+			</exclusion> <exclusion> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter</artifactId> 
+			</exclusion> <exclusion> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-configuration-processor</artifactId> 
+			</exclusion> <exclusion> <groupId>commons-logging</groupId> <artifactId>commons-logging</artifactId> 
+			</exclusion> <exclusion> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
+			</exclusion> <exclusion> <groupId>org.springframework</groupId> <artifactId>spring-context</artifactId> 
+			</exclusion> <exclusion> <groupId>com.baomidou</groupId> <artifactId>mybatis-plus</artifactId> 
+			</exclusion> </exclusions> </dependency> -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatisplus-spring-boot-starter</artifactId>
+			<version>${mybatisplus-spring-boot-starter.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-jdbc</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-autoconfigure</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-configuration-processor</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus</artifactId>
+			<version>${mybatis-plus.version}</version>
+		</dependency>
+
+		<!-- 热部署工具 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<!-- javameLody监控（优点是图形化） -->
+		<dependency>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-spring-boot-starter</artifactId>
+			<version>1.70.0</version>
+		</dependency>
+		<!-- Optional: iText dependency for PDF exports in JavaMelody -->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>bcmail-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bcprov-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>bctsp-jdk14</artifactId>
+					<groupId>bouncycastle</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-eclipse-compiler</artifactId>
+			<version>2.9.2-01</version>
+			<type>maven-plugin</type>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<!-- <version>2.4.13</version> -->
+		</dependency>
+		<dependency>
+			<groupId>com.sargeraswang.util</groupId>
+			<artifactId>excel-util</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		
+		<!-- Swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+				<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.17</version>
+</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>PerformanceManageSystem</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- 编译配置 -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.source}</target>
+					<encoding>${maven.compiler.encoding}</encoding>
+					<compilerArguments>
+						<!-- <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs> -->
+					</compilerArguments>
+					<compilerId>groovy-eclipse-compiler</compilerId>
+					<verbose>true</verbose>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-compiler</artifactId>
+						<version>2.7.0-01</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<!-- 打包配置 -->
+			<!-- <plugin> <artifactId>maven-war-plugin</artifactId> <configuration> 
+				maven打包的时候告诉maven不需要web.xml,否刚会报找不到web.xml错误 <failOnMissingWebXml>false</failOnMissingWebXml> 
+				</configuration> </plugin> -->
+			<plugin>
+				<groupId>com.syj</groupId>
+				<artifactId>mybatisplus-maven-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<!-- 输出目录(默认java.io.tmpdir) -->
+					<!-- <outputDir>C:\mytest</outputDir> -->
+					<!-- 是否覆盖同名文件(默认false) -->
+					<fileOverride>true</fileOverride>
+					<!-- 是否打开输出目录(默认true) -->
+					<open>true</open>
+					<!-- mapper.xml 中添加二级缓存配置(默认true) -->
+					<enableCache>false</enableCache>
+					<!-- 开发者名称 -->
+					<author>syj</author>
+					<!-- 是否开启 ActiveRecord 模式(默认true) -->
+					<activeRecord>false</activeRecord>
+					<!-- 数据源配置，( **必配** ) -->
+					<!-- <dataSource> -->
+					<!-- <driverName>oracle.jdbc.driver.OracleDriver</driverName> -->
+					<!-- <url>jdbc:oracle:thin:@localhost:1521:orcl</url> -->
+					<!-- <username>etu_dsjx3</username> -->
+					<!-- <password>etu_dsjx3</password> -->
+					<!-- </dataSource> -->
+					<dataSource>
+						<driverName>com.mysql.jdbc.Driver</driverName>
+						<url>jdbc:mysql://localhost:3306/db_performance_manage_system_dev</url>
+						<username>root</username>
+						<password>111111</password>
+					</dataSource>
+					<strategy>
+						<!-- 字段生成策略，四种类型，从名称就能看出来含义： nochange(默认), underline_to_camel,(下划线转驼峰) 
+							remove_prefix,(去除第一个下划线的前部分，后面保持不变) remove_prefix_and_camel(去除第一个下划线的前部分，后面转驼峰) -->
+						<naming>underline_to_camel</naming>
+						<!-- 表前缀 -->
+						<tablePrefix>score_</tablePrefix>
+						<!--Entity中的ID生成策略（默认 id_worker） -->
+						<idGenType>auto</idGenType>
+						<!--自定义超类 -->
+						<!--<superServiceClass>com.baomidou.base.BaseService</superServiceClass> -->
+						<!-- 要包含的表 与 exclude 二选一配置 -->
+						<include>
+							<!--<property>sec_user</property> -->
+							<!--<property>table1</property> -->
+							<!-- <property>sys_position</property> -->
+							<!-- <property>biz_project</property> -->
+							<property>score_base_project</property>
+						</include>
+						<exclude>
+							<!--<property>sec_user</property> -->
+							<!--<property>table1</property> -->
+						</exclude>
+						<includePrefix>score_</includePrefix>
+
+						<!-- 要排除的表 -->
+						<!--<exclude> -->
+						<!--<property>schema_version</property> -->
+						<!--</exclude> -->
+					</strategy>
+					<packageInfo>
+						<!-- 父级包名称，如果不写，下面的service等就需要写全包名(默认com.baomidou) -->
+						<parent>com.syj</parent>
+						<!--service包名(默认service) -->
+						<service>service</service>
+						<!--serviceImpl包名(默认service.impl) -->
+						<serviceImpl>service.impl</serviceImpl>
+						<!--entity包名(默认entity) -->
+						<entity>entity</entity>
+						<!--mapper包名(默认mapper) -->
+						<mapper>dao</mapper>
+						<!--xml包名(默认mapper.xml) -->
+						<xml>mapper</xml>
+					</packageInfo>
+					<template>
+						<!-- <controller>/template/controller.java.vm</controller> -->
+					</template>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.44</version>
+					</dependency>
+					<!-- <dependency> -->
+					<!-- <groupId>com.oracle</groupId> -->
+					<!-- <artifactId>ojdbc14</artifactId> -->
+					<!-- <version>10.2.0.5.0</version> -->
+					<!-- </dependency> -->
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

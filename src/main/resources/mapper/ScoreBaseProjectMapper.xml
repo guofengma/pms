@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.score.dao.ScoreBaseProjectDao">
+
+	<!-- 通用查询结果列 -->
+	<select id="queryAllLoanNos" resultType="java.lang.String">
+		SELECT loan_no FROM
+		score_base_project
+	</select>
+
+	<select id="findByScoreDataIdAndloanDate" resultType="com.teamtek.admin.score.entity.ScoreBaseProject">
+		SELECT *
+		FROM score_base_project
+		WHERE
+		score_data_id=#{scoreDataId} AND
+		DATE_FORMAT(loan_date,'%Y-%m')='#{searchTime}' AND product_id=#{productId}
+	</select>
+</mapper>

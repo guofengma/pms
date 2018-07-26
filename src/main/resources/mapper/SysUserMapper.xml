@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.sys.dao.SysUserDao">
+	<select id="queryByUserName" resultType="SysUser">
+		select * from sys_user
+		where username = #{username}
+	</select>
+	<select id="queryAllUserNames" resultType="java.lang.String">
+		SELECT username FROM
+		sys_user
+	</select>
+
+	<select id="findByUserNo" resultType="SysUser">
+		select * from sys_user where user_no = #{userNo}
+	</select>
+	
+	<select id="selectBySex" resultType="SysUser">
+		select * from sys_user where sex = #{sex}
+    and name = #{name}
+	</select>
+</mapper>

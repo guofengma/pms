@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.biz.dao.BizGroupProjectConfigureDao">
+
+	<resultMap id="BaseResultMap" type="com.teamtek.admin.biz.entity.BizGroupProjectConfigure">
+		<id column="id" property="id" />
+		<result column="rule_detail_id" property="ruleDetailId" />
+		<result column="zone_id" property="zoneId" />
+	</resultMap>
+
+	<select id="findByMainZoneIdAndSearchDate">
+		SELECT biz_group_project_integral.*
+		FROM biz_template_main_project_zone
+		LEFT JOIN biz_group_project_configure ON
+		biz_group_project_configure.`zone_id`=biz_template_main_project_zone.`id`
+		LEFT JOIN biz_group_project_integral ON
+		biz_group_project_integral.`group_project_configure_id`=biz_group_project_configure.`id`
+		WHERE biz_template_main_project_zone.`id`=#{mainZoneId} AND
+		DATE_FORMAT(biz_group_project_integral.`curr_date`,'%Y-%m')='#{searchDate}'
+	</select>
+	
+</mapper>

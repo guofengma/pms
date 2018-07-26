@@ -1,0 +1,23 @@
+javamelody:
+  # if you have auto-proxy issues, you can add the following property 
+  # (and the spring-boot-starter-aop dependency in pom.xml):\
+  # 默认为 true 会造成 controller 初始化异常  但没有异常信息 坑爹！！！ 
+  advisor-auto-proxy-creator-enabled: false
+
+  # Initialization parameters for JavaMelody
+  # See: https://github.com/javamelody/javamelody/wiki/UserGuide#6-optional-parameters
+  init-parameters:
+    # log http requests
+    log: true
+
+    # to exclude images, css, fonts and js urls from the monitoring:
+    #url-exclude-pattern: (/webjars/.*|/css/.*|/images/.*|/fonts/.*|/js/.*)
+
+    # to add basic auth:
+    authorized-users: admin:admin
+
+    # to change the default storage directory:
+    #storage-directory: d:/foshanyouchujifen/cache/javamelody
+
+    # to change the default "/monitoring" path
+    monitoring-path: /lody/monitoring

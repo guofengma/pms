@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.biz.dao.BizProjectTypeScoresDao">
+
+	<select id="selectByCurrMonth" resultType="com.teamtek.core.vo.Record">
+		<!-- SELECT
+		bpts.id id,
+		bpts.project_type_id projectTypeId ,
+		bpts.curr_month currMonth,
+		bpts.finish_score finishScore,
+		bpts.curr_score currScore,
+		(SELECT bpt.type_name FROM biz_project_type bpt WHERE
+		bpt.id=bpts.project_type_id) projectType
+		FROM biz_project_type_scores bpts
+		WHERE bpts.curr_month=#{currMonth} -->
+		
+		<!-- SELECT
+		bpts.id id,
+		bpt.id projectTypeId ,
+		bpts.curr_month currMonth,
+		bpts.finish_score finishScore,
+		bpts.curr_score currScore,
+		bpts.total_score totalScore,
+		bpts.score_from_last scoreFromLast,
+		bpts.score_to_next scoreToNext,
+		bpt.type_name projectType
+		FROM biz_project_type bpt 
+		LEFT JOIN biz_project_type_scores bpts ON bpt.id=bpts.project_type_id 
+		WHERE bpts.curr_month=#{currMonth} OR bpts.curr_month is null -->
+		
+		SELECT
+		bpt.id projectTypeId ,
+		bpt.type_name projectType,
+		e.id id,
+		e.curr_month currMonth,
+		e.finish_score finishScore,
+		e.curr_score currScore,
+		e.total_score totalScore,
+		e.score_from_last scoreFromLast,
+		e.score_to_next scoreToNext
+		FROM biz_project_type bpt 
+		LEFT JOIN 
+		(SELECT bpts.* FROM biz_project_type_scores bpts WHERE bpts.curr_month=#{currMonth})e 
+		ON bpt.id=e.project_type_id 
+	</select>
+</mapper>

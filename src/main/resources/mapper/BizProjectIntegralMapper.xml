@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.biz.dao.BizProjectIntegralDao">
+
+	<resultMap id="BaseResultMap"
+		type="com.teamtek.admin.biz.entity.BizProjectIntegral">
+		<id column="id" property="id" />
+		<result column="project_configure_id" property="projectConfigureId" />
+		<result column="user_id" property="userId" />
+		<result column="curr_date" property="currDate" />
+		<result column="integral" property="integral" />
+		<result column="adjusted_integral" property="adjustedIntegral" />
+		<result column="user_type" property="userType" />
+	</resultMap>
+
+	<select id="findByGroupConfigureId" resultType="com.teamtek.admin.biz.entity.BizProjectIntegral">
+		select
+		biz_project_integral.*
+		from
+		biz_group_project_configure
+		left join
+		biz_project_configure
+		on
+		biz_project_configure.`group_project_configure_id` =
+		biz_group_project_configure.`id`
+		left join biz_project_integral
+		on
+		biz_project_integral.`project_configure_id` =
+		biz_project_configure.`id`
+		where biz_group_project_configure.`id` =
+		#{groupConfigureId} and
+		DATE_FORMAT(biz_project_integral.`curr_date`,'%Y-%m')='#{searchTime}'
+	</select>
+
+	<select id="findByGroupQuoteConfigureId" resultType="com.teamtek.admin.biz.entity.BizProjectIntegral">
+		SELECT
+		biz_project_integral.*
+		FROM
+		biz_group_quote_project_configure
+		LEFT JOIN
+		biz_project_configure
+		ON
+		biz_project_configure.`group_quote_project_configure_id` =
+		biz_group_quote_project_configure.`id`
+		LEFT JOIN biz_project_integral
+		ON biz_project_integral.`project_configure_id` =
+		biz_project_configure.`id`
+		WHERE biz_group_project_configure.`id` =
+		#{groupConfigureId} and
+		DATE_FORMAT(biz_project_integral.`curr_date`,'%Y-%m')='#{searchTime}'
+	</select>
+	
+	<!-- 根据主区域ID和查询日期查询 -->
+	<select id="findByMainZoneIdAndSearchTime">
+		SELECT biz_project_integral.*
+		FROM biz_template_main_project_zone
+		LEFT JOIN biz_project_configure ON
+		biz_project_configure.`zone_id`=biz_template_main_project_zone.`id`
+		LEFT JOIN biz_project_integral ON
+		biz_project_integral.`project_configure_id`=biz_project_configure.`id`
+		WHERE biz_template_main_project_zone.`id`=#{mainZoneId} AND
+		DATE_FORMAT(biz_project_integral.`curr_date`,'%Y-%m')='#{searchDate}'
+	</select>
+</mapper>

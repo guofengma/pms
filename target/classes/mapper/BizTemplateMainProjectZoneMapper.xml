@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.biz.dao.BizTemplateMainProjectZoneDao">
+
+	<resultMap id="BaseResultMap" type="com.teamtek.admin.biz.entity.BizTemplateMainProjectZone">
+		<id column="id" property="id" />
+		<result column="rule_template_id" property="ruleTemplateId" />
+		<result column="main_porject_id" property="mainPorjectId" />
+		<result column="configure_status" property="configureStatus" />
+	</resultMap>
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+       SELECT id, rule_template_id AS ruleTemplateId, main_porject_id AS mainPorjectId, configure_status AS configureStatus FROM biz_template_main_project_zone
+    </sql>
+</mapper>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.sys.dao.SysPositionDao">
+	<select id="selectPositionsByUserId" resultType="SysPosition">
+		SELECT sp.* FROM sys_position sp LEFT JOIN sys_user_position sup
+		ON sp.id=sup.position_id WHERE sup.user_id=#{userId}
+	</select>
+
+</mapper>

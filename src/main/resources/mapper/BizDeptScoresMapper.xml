@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.biz.dao.BizDeptScoresDao">
+
+	<select id="selectByCurrMonthAndProjectTypeId" resultType="com.teamtek.core.vo.Record">
+		SELECT
+		zds.id,
+		zds.finish_score finishScore,
+		zds.curr_score currScore,
+		zds.total_score totalScore,
+		zds.score_from_last scoreFromLast,
+		zds.score_to_next scoreToNext,
+		zds.curr_month currMonth,
+		zds.dept_id deptId,
+		(SELECT sd.dept_name FROM sys_dept sd WHERE sd.id=zds.dept_id) deptName,
+		(SELECT bpt.type_name FROM biz_project_type bpt WHERE bpt.id=zds.project_type_id) projectType,
+		zds.project_type_id projectTypeId
+		from biz_dept_scores zds 
+		WHERE zds.curr_month=#{currMonth} and zds.project_type_id=#{projectTypeId}
+	</select>
+</mapper>

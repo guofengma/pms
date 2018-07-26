@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamtek.admin.biz.dao.BizRuleTemplateDao">
+
+	<resultMap id="BaseResultMap" type="com.teamtek.admin.biz.entity.BizRuleTemplate">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="type" property="type" />
+		<result column="publish_status" property="publishStatus" />
+		<result column="pos_id" property="posId" />
+		<result column="assess_coefficient" property="assessCoefficient" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+    <!-- 通用查询结果列-->
+    <sql id="Base_Column_List">
+       SELECT id, name, type, publish_status AS publishStatus, pos_id AS posId, assess_coefficient AS assessCoefficient, create_time AS createTime FROM biz_rule_template
+    </sql>
+</mapper>
